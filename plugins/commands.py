@@ -62,7 +62,7 @@ async def start(client, message):
             InlineKeyboardButton('💁‍♀️ ʜᴇʟᴘ', callback_data='help'),
             InlineKeyboardButton('😊 ᴀʙᴏᴜᴛ', callback_data='about')
         ]]
-        if CLONE_MODE == True:
+        if CLONE_MODE == False:
             buttons.append([InlineKeyboardButton('🤖 ᴄʀᴇᴀᴛᴇ ʏᴏᴜʀ ᴏᴡɴ ᴄʟᴏɴᴇ ʙᴏᴛ', callback_data='clone')])
         reply_markup = InlineKeyboardMarkup(buttons)
         me2 = (await client.get_me()).mention
@@ -105,7 +105,7 @@ async def start(client, message):
             )
     elif data.split("-", 1)[0] == "BATCH":
         try:
-            if not await check_verification(client, message.from_user.id) and VERIFY_MODE == True:
+            if not await check_verification(client, message.from_user.id) and VERIFY_MODE == False:
                 btn = [[
                     InlineKeyboardButton("Verify", url=await get_token(client, message.from_user.id, f"https://telegram.me/{username}?start="))
                 ],[
@@ -147,7 +147,7 @@ async def start(client, message):
             if f_caption is None:
                 f_caption = f"{title}"
             try:
-                if STREAM_MODE == True:
+                if STREAM_MODE == False:
                     # Create the inline keyboard button with callback_data
                     user_id = message.from_user.id
                     username =  message.from_user.mention 
@@ -167,7 +167,7 @@ async def start(client, message):
                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🚀 Fast Download 🚀", url=download),  # we download Link
                                                             InlineKeyboardButton('🖥️ Watch online 🖥️', url=stream)]])  # web stream Link
                     )
-                if STREAM_MODE == True:
+                if STREAM_MODE == False:
                     button = [[
                         InlineKeyboardButton("🚀 Fast Download 🚀", url=download),  # we download Link
                         InlineKeyboardButton('🖥️ Watch online 🖥️', url=stream)
@@ -202,7 +202,7 @@ async def start(client, message):
                 continue
             await asyncio.sleep(1) 
         await sts.delete()
-        if AUTO_DELETE_MODE == True:
+        if AUTO_DELETE_MODE == False:
             k = await client.send_message(chat_id = message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie File/Video will be deleted in <b><u>{AUTO_DELETE} minutes</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this File/Video to your Saved Messages and Start Download there</b>")
             await asyncio.sleep(AUTO_DELETE_TIME)
             for x in filesarr:
@@ -220,7 +220,7 @@ async def start(client, message):
     files_ = await get_file_details(file_id)           
     if not files_:
         pre, file_id = ((base64.urlsafe_b64decode(data + "=" * (-len(data) % 4))).decode("ascii")).split("_", 1)
-        if not await check_verification(client, message.from_user.id) and VERIFY_MODE == True:
+        if not await check_verification(client, message.from_user.id) and VERIFY_MODE == False:
             btn = [[
                 InlineKeyboardButton("Verify", url=await get_token(client, message.from_user.id, f"https://telegram.me/{username}?start="))
             ],[
@@ -250,7 +250,7 @@ async def start(client, message):
                     return
             
             await msg.edit_caption(f_caption)
-            if STREAM_MODE == True:
+            if STREAM_MODE == False:
                 g = await msg.reply_text(
                     text=f"**•• ʏᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ ᴏɴʟɪɴᴇ sᴛʀᴇᴀᴍ ʟɪɴᴋ ᴏғ ʏᴏᴜʀ ғɪʟᴇ ᴀɴᴅ ᴀʟsᴏ ғᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ ғᴏʀ ʏᴏᴜʀ ғɪʟᴇ ᴄʟɪᴄᴋɪɴɢ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ 👇**",
                     quote=True,
@@ -293,7 +293,7 @@ async def start(client, message):
             f_caption=f_caption
     if f_caption is None:
         f_caption = f"{files.file_name}"
-    if not await check_verification(client, message.from_user.id) and VERIFY_MODE == True:
+    if not await check_verification(client, message.from_user.id) and VERIFY_MODE == False:
         btn = [[
             InlineKeyboardButton("Verify", url=await get_token(client, message.from_user.id, f"https://telegram.me/{username}?start="))
         ],[
@@ -311,7 +311,7 @@ async def start(client, message):
         caption=f_caption,
         protect_content=True if pre == 'filep' else False,
     )
-    if STREAM_MODE == True:
+    if STREAM_MODE == False:
         g = await x.reply_text(
             text=f"**•• ʏᴏᴜ ᴄᴀɴ ɢᴇɴᴇʀᴀᴛᴇ ᴏɴʟɪɴᴇ sᴛʀᴇᴀᴍ ʟɪɴᴋ ᴏғ ʏᴏᴜʀ ғɪʟᴇ ᴀɴᴅ ᴀʟsᴏ ғᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ ғᴏʀ ʏᴏᴜʀ ғɪʟᴇ ᴄʟɪᴄᴋɪɴɢ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ 👇**",
             quote=True,
