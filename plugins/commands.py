@@ -48,12 +48,6 @@ def get_size(size):
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
-
-    # Check for force subscription
-    Fsub = await ForceSub(client, message)
-    if Fsub == 400:
-        return
-    
     username = (await client.get_me()).username
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
@@ -110,6 +104,13 @@ async def start(client, message):
                 protect_content=True
             )
     elif data.split("-", 1)[0] == "BATCH":
+        try:
+            
+    # Check for force subscription
+    Fsub = await ForceSub(client, message)
+    if Fsub == 400:
+        return
+    
         try:
             if not await check_verification(client, message.from_user.id) and VERIFY_MODE == False:
                 btn = [[
